@@ -1,0 +1,17 @@
+born
+	mage i
+	mage j
+	mage k
+	listen(i)
+	si (i = j) { 
+		i <- 0
+	} sino_si (i <> j) {
+		i <- 1
+	} sino_si (i <> k) {
+		i <- 0
+	} sino {
+		i <- 1
+	}
+	fin_si
+	talk(i)
+die
