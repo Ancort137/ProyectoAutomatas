@@ -1,8 +1,8 @@
-born
-	mage i
-	mage j
-	mage k
-	listen(i)
+inicio
+	entero i
+	entero j
+	entero k
+	leer(i)
 	si (i = j) { 
 		i <- 0
 	} sino_si (i <> j) {
@@ -13,5 +13,5 @@ born
 		i <- 1
 	}
 	fin_si
-	talk(i)
-die
+	escribir(i)
+fin

@@ -5,7 +5,7 @@ fragment FALSE	: 'decline'			;
 fragment NAT	: [0-9]				;
 fragment DOT	: '.'				;
 
-EXC_MARK: '!'	; 
+EXC_MARK: '!'	;
 PLUS 	: '+'	;
 MINUS	: '-'	;
 AND		: '$$'	;
@@ -20,7 +20,7 @@ LBRACE	: '{'	;
 RBRACE	: '}'	;
 
 BEGIN_RW	: 'born'		;
-END_RW		: 'die'			;
+END_RW		: 'die'			; 
 IF_RW		: 'attack'		;
 ELSE_RW		: 'defend'		;
 //ENDIF_RW	: 'fin_si'		;
@@ -29,21 +29,24 @@ WRITE_RW	: 'talk'		;
 INTEGER_RW	: 'mage'		;
 STRING_RW	: 'knigth'		;
 FLOAT_RW	: 'priest'		;
-//REAL_RW	: 'real'		;
-//BOOLEAN_RW: 'logico'		;
+BOOLEAN_RW	: 'thief'		;
+
 
 NUMBER	: NAT+				;
 FLOAT 	: NUMBER DOT NUMBER	;
-BOOLEAN 	: TRUE | FALSE	;
+BOOLEAN : TRUE | FALSE		;
 STRING 	: '"' .*? '"'		;
 
-ASSIGN 	: LT MINUS GT	;
+ASSIGN 	: LT MINUS GT		;
 
-
-ID		: [a-zA-Z]+						;
+ID		: [a-zA-Z]+.([a-zA-Z0-9])*		;
 COMMENT	:  '||' .*? '\r'? '\n' -> skip	;
 WS 		: [ \t\r\n]+ -> skip 			;
 
+POW		: 'buff'	;
+SQRT	: 'nerf'	;
+ABS		: 'clean'	;
+RAND	: 'roll'	;
 
 
 

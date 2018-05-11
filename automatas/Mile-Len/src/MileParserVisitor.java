@@ -75,13 +75,6 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitId(MileParserParser.IdContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code great}
-	 * labeled alternative in {@link MileParserParser#operation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGreat(MileParserParser.GreatContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code plus}
 	 * labeled alternative in {@link MileParserParser#operation}.
 	 * @param ctx the parse tree
