@@ -1,15 +1,16 @@
 born
 	mage i
 	priest j
-	mage i8
+	mage i
 	
 	listen(i)
 	
-	attack(i = j) !
+	attack(i = j)!
 		i <-> 0 
 	! defend!
 		j <-> 1
 	!
 	
 	talk(i)
+
 die

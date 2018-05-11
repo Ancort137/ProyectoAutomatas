@@ -22,16 +22,17 @@ start_block : BEGIN_RW
 end_block	: END_RW		
 			;
 
-operation  	: operation PLUS operation 							# plus
-            | operation ( EQUAL | NQUAL | LT | GT) operation 	# comp
-            | operation AND operation 							# and
-            | operation OR operation 							# or
-            | ID 												# id
-            | LPAR operation RPAR 								# parens
+operation  	: operation PLUS operation 				# plus
+            | operation ( EQUAL | NQUAL ) operation 	# comp
+            | operation AND operation 				# and
+            | operation OR operation 				# or
+            | ID 									# id
+            | LPAR operation RPAR 					# parens
             ;
 
-if_block	: IF_RW condition_block  
-			  (ELSE_RW else_block)? 
+
+if_block	: IF_RW condition_block 
+			  (ELSE_RW else_block)* 
 			;
 
 condition_block	: LPAR operation RPAR EXC_MARK block EXC_MARK
@@ -41,23 +42,23 @@ condition_block	: LPAR operation RPAR EXC_MARK block EXC_MARK
 else_block	: EXC_MARK block EXC_MARK
             | stat
 			;
-			
+
 block		: stat* 
 			;
 
 assign 		: ID ASSIGN 
 			( operation 
 			| ID 
-			| NUMBER 
+			| INT 
 			| FLOAT 
 			| STRING 
 			| BOOLEAN
 			) ; 
 
 variable_type	: INTEGER_RW
+				| FLOAT_RW 
 				| STRING_RW
 				| BOOLEAN_RW
-				| FLOAT_RW
 				;
 
 declaration		: variable_type ID 

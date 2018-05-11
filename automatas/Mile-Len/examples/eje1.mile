@@ -1,17 +1,17 @@
-inicio
-	entero i
-	entero j
-	entero k
-	leer(i)
-	si (i = j) { 
-		i <- 0
-	} sino_si (i <> j) {
-		i <- 1
-	} sino_si (i <> k) {
-		i <- 0
-	} sino {
-		i <- 1
-	}
-	fin_si
-	escribir(i)
-fin
+born
+	mage i
+	mage j
+	priest k
+	knight i17
+	
+	listen(i)
+	
+	attack(i = j) ! 
+		i <-> 0
+	!defend!
+		i <-> 1
+	!defend!
+		j <-> 2
+	!
+	talk(i)
+die

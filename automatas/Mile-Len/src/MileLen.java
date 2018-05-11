@@ -15,7 +15,7 @@ public class MileLen {
 		try {
 			System.out.println("Scanning file...");
 			ANTLRInputStream input = new ANTLRInputStream (
-					load("examples/eje2.rpg")) ;
+					load("examples/eje1.mile")) ;
 			MileParserLexer lexer = new MileParserLexer(input);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			MileParserParser parser = new MileParserParser(tokens);
