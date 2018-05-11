@@ -5,7 +5,7 @@ fragment FALSE	: 'decline'			;
 fragment NAT	: [0-9]				;
 fragment DOT	: '.'				;
 
- 
+EXC_MARK: '!'	; 
 PLUS 	: '+'	;
 MINUS	: '-'	;
 AND		: '$$'	;
@@ -14,7 +14,6 @@ EQUAL	: '='	;
 NQUAL	: '<>'	;
 GT		: '>'	;
 LT		: '<'	;
-ASSIGN 	: '<->'	; // ********
 LPAR	: '('	;
 RPAR	: ')'	;
 LBRACE	: '{'	;
@@ -38,6 +37,7 @@ FLOAT 	: NUMBER DOT NUMBER	;
 BOOLEAN 	: TRUE | FALSE	;
 STRING 	: '"' .*? '"'		;
 
+ASSIGN 	: LT MINUS GT	;
 
 
 ID		: [a-zA-Z]+						;

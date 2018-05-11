@@ -16,11 +16,11 @@ public class MileParserParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		PLUS=1, MINUS=2, AND=3, OR=4, EQUAL=5, NQUAL=6, GT=7, LT=8, ASSIGN=9, 
+		EXC_MARK=1, PLUS=2, MINUS=3, AND=4, OR=5, EQUAL=6, NQUAL=7, GT=8, LT=9, 
 		LPAR=10, RPAR=11, LBRACE=12, RBRACE=13, BEGIN_RW=14, END_RW=15, IF_RW=16, 
-		ELIF_RW=17, ELSE_RW=18, ENDIF_RW=19, READ_RW=20, WRITE_RW=21, INTEGER_RW=22, 
-		STRING_RW=23, REAL_RW=24, BOOLEAN_RW=25, NUMBER=26, FLOAT=27, BOOLEAN=28, 
-		STRING=29, ID=30, COMMENT=31, WS=32;
+		ELSE_RW=17, READ_RW=18, WRITE_RW=19, INTEGER_RW=20, STRING_RW=21, FLOAT_RW=22, 
+		NUMBER=23, FLOAT=24, BOOLEAN=25, STRING=26, ASSIGN=27, ID=28, COMMENT=29, 
+		WS=30;
 	public static final int
 		RULE_s = 0, RULE_program = 1, RULE_stat = 2, RULE_start_block = 3, RULE_end_block = 4, 
 		RULE_operation = 5, RULE_if_block = 6, RULE_condition_block = 7, RULE_else_block = 8, 
@@ -33,16 +33,15 @@ public class MileParserParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'+'", "'-'", "'and'", "'or'", "'='", "'<>'", "'>'", "'<'", "'<-'", 
-		"'('", "')'", "'{'", "'}'", "'born'", "'die'", "'si'", "'sino_si'", "'sino'", 
-		"'fin_si'", "'listen'", "'talk'", "'mage'", "'knigth'", "'real'", "'logico'"
+		null, "'!'", "'+'", "'-'", "'$$'", "'//'", "'='", "'<>'", "'>'", "'<'", 
+		"'('", "')'", "'{'", "'}'", "'born'", "'die'", "'attack'", "'defend'", 
+		"'listen'", "'talk'", "'mage'", "'knigth'", "'priest'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, "PLUS", "MINUS", "AND", "OR", "EQUAL", "NQUAL", "GT", "LT", "ASSIGN", 
-		"LPAR", "RPAR", "LBRACE", "RBRACE", "BEGIN_RW", "END_RW", "IF_RW", "ELIF_RW", 
-		"ELSE_RW", "ENDIF_RW", "READ_RW", "WRITE_RW", "INTEGER_RW", "STRING_RW", 
-		"REAL_RW", "BOOLEAN_RW", "NUMBER", "FLOAT", "BOOLEAN", "STRING", "ID", 
-		"COMMENT", "WS"
+		null, "EXC_MARK", "PLUS", "MINUS", "AND", "OR", "EQUAL", "NQUAL", "GT", 
+		"LT", "LPAR", "RPAR", "LBRACE", "RBRACE", "BEGIN_RW", "END_RW", "IF_RW", 
+		"ELSE_RW", "READ_RW", "WRITE_RW", "INTEGER_RW", "STRING_RW", "FLOAT_RW", 
+		"NUMBER", "FLOAT", "BOOLEAN", "STRING", "ASSIGN", "ID", "COMMENT", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -178,7 +177,7 @@ public class MileParserParser extends Parser {
 				setState(37); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAR) | (1L << IF_RW) | (1L << READ_RW) | (1L << WRITE_RW) | (1L << INTEGER_RW) | (1L << STRING_RW) | (1L << REAL_RW) | (1L << BOOLEAN_RW) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAR) | (1L << IF_RW) | (1L << READ_RW) | (1L << WRITE_RW) | (1L << INTEGER_RW) | (1L << STRING_RW) | (1L << FLOAT_RW) | (1L << ID))) != 0) );
 			setState(39);
 			end_block();
 			}
@@ -611,16 +610,8 @@ public class MileParserParser extends Parser {
 
 	public static class If_blockContext extends ParserRuleContext {
 		public TerminalNode IF_RW() { return getToken(MileParserParser.IF_RW, 0); }
-		public List<Condition_blockContext> condition_block() {
-			return getRuleContexts(Condition_blockContext.class);
-		}
-		public Condition_blockContext condition_block(int i) {
-			return getRuleContext(Condition_blockContext.class,i);
-		}
-		public TerminalNode ENDIF_RW() { return getToken(MileParserParser.ENDIF_RW, 0); }
-		public List<TerminalNode> ELIF_RW() { return getTokens(MileParserParser.ELIF_RW); }
-		public TerminalNode ELIF_RW(int i) {
-			return getToken(MileParserParser.ELIF_RW, i);
+		public Condition_blockContext condition_block() {
+			return getRuleContext(Condition_blockContext.class,0);
 		}
 		public TerminalNode ELSE_RW() { return getToken(MileParserParser.ELSE_RW, 0); }
 		public Else_blockContext else_block() {
@@ -640,7 +631,6 @@ public class MileParserParser extends Parser {
 	public final If_blockContext if_block() throws RecognitionException {
 		If_blockContext _localctx = new If_blockContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_if_block);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -648,36 +638,18 @@ public class MileParserParser extends Parser {
 			match(IF_RW);
 			setState(82);
 			condition_block();
-			setState(87);
+			setState(85);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==ELIF_RW) {
-				{
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			case 1:
 				{
 				setState(83);
-				match(ELIF_RW);
-				setState(84);
-				condition_block();
-				}
-				}
-				setState(89);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(92);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==ELSE_RW) {
-				{
-				setState(90);
 				match(ELSE_RW);
-				setState(91);
+				setState(84);
 				else_block();
 				}
+				break;
 			}
-
-			setState(94);
-			match(ENDIF_RW);
 			}
 		}
 		catch (RecognitionException re) {
@@ -697,11 +669,13 @@ public class MileParserParser extends Parser {
 			return getRuleContext(OperationContext.class,0);
 		}
 		public TerminalNode RPAR() { return getToken(MileParserParser.RPAR, 0); }
-		public TerminalNode LBRACE() { return getToken(MileParserParser.LBRACE, 0); }
+		public List<TerminalNode> EXC_MARK() { return getTokens(MileParserParser.EXC_MARK); }
+		public TerminalNode EXC_MARK(int i) {
+			return getToken(MileParserParser.EXC_MARK, i);
+		}
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode RBRACE() { return getToken(MileParserParser.RBRACE, 0); }
 		public StatContext stat() {
 			return getRuleContext(StatContext.class,0);
 		}
@@ -720,36 +694,36 @@ public class MileParserParser extends Parser {
 		Condition_blockContext _localctx = new Condition_blockContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_condition_block);
 		try {
-			setState(108);
+			setState(99);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(96);
+				setState(87);
 				match(LPAR);
-				setState(97);
+				setState(88);
 				operation(0);
-				setState(98);
+				setState(89);
 				match(RPAR);
-				setState(99);
-				match(LBRACE);
-				setState(100);
+				setState(90);
+				match(EXC_MARK);
+				setState(91);
 				block();
-				setState(101);
-				match(RBRACE);
+				setState(92);
+				match(EXC_MARK);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(103);
+				setState(94);
 				match(LPAR);
-				setState(104);
+				setState(95);
 				operation(0);
-				setState(105);
+				setState(96);
 				match(RPAR);
-				setState(106);
+				setState(97);
 				stat();
 				}
 				break;
@@ -767,11 +741,13 @@ public class MileParserParser extends Parser {
 	}
 
 	public static class Else_blockContext extends ParserRuleContext {
-		public TerminalNode LBRACE() { return getToken(MileParserParser.LBRACE, 0); }
+		public List<TerminalNode> EXC_MARK() { return getTokens(MileParserParser.EXC_MARK); }
+		public TerminalNode EXC_MARK(int i) {
+			return getToken(MileParserParser.EXC_MARK, i);
+		}
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode RBRACE() { return getToken(MileParserParser.RBRACE, 0); }
 		public StatContext stat() {
 			return getRuleContext(StatContext.class,0);
 		}
@@ -790,18 +766,18 @@ public class MileParserParser extends Parser {
 		Else_blockContext _localctx = new Else_blockContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_else_block);
 		try {
-			setState(115);
+			setState(106);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case LBRACE:
+			case EXC_MARK:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(110);
-				match(LBRACE);
-				setState(111);
+				setState(101);
+				match(EXC_MARK);
+				setState(102);
 				block();
-				setState(112);
-				match(RBRACE);
+				setState(103);
+				match(EXC_MARK);
 				}
 				break;
 			case LPAR:
@@ -810,12 +786,11 @@ public class MileParserParser extends Parser {
 			case WRITE_RW:
 			case INTEGER_RW:
 			case STRING_RW:
-			case REAL_RW:
-			case BOOLEAN_RW:
+			case FLOAT_RW:
 			case ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(114);
+				setState(105);
 				stat();
 				}
 				break;
@@ -859,17 +834,17 @@ public class MileParserParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120);
+			setState(111);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAR) | (1L << IF_RW) | (1L << READ_RW) | (1L << WRITE_RW) | (1L << INTEGER_RW) | (1L << STRING_RW) | (1L << REAL_RW) | (1L << BOOLEAN_RW) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAR) | (1L << IF_RW) | (1L << READ_RW) | (1L << WRITE_RW) | (1L << INTEGER_RW) | (1L << STRING_RW) | (1L << FLOAT_RW) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(117);
+				setState(108);
 				stat();
 				}
 				}
-				setState(122);
+				setState(113);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -916,46 +891,46 @@ public class MileParserParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(123);
+			setState(114);
 			match(ID);
-			setState(124);
+			setState(115);
 			match(ASSIGN);
-			setState(131);
+			setState(122);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				{
-				setState(125);
+				setState(116);
 				operation(0);
 				}
 				break;
 			case 2:
 				{
-				setState(126);
+				setState(117);
 				match(ID);
 				}
 				break;
 			case 3:
 				{
-				setState(127);
+				setState(118);
 				match(NUMBER);
 				}
 				break;
 			case 4:
 				{
-				setState(128);
+				setState(119);
 				match(FLOAT);
 				}
 				break;
 			case 5:
 				{
-				setState(129);
+				setState(120);
 				match(STRING);
 				}
 				break;
 			case 6:
 				{
-				setState(130);
+				setState(121);
 				match(BOOLEAN);
 				}
 				break;
@@ -975,9 +950,8 @@ public class MileParserParser extends Parser {
 
 	public static class Variable_typeContext extends ParserRuleContext {
 		public TerminalNode INTEGER_RW() { return getToken(MileParserParser.INTEGER_RW, 0); }
-		public TerminalNode REAL_RW() { return getToken(MileParserParser.REAL_RW, 0); }
 		public TerminalNode STRING_RW() { return getToken(MileParserParser.STRING_RW, 0); }
-		public TerminalNode BOOLEAN_RW() { return getToken(MileParserParser.BOOLEAN_RW, 0); }
+		public TerminalNode FLOAT_RW() { return getToken(MileParserParser.FLOAT_RW, 0); }
 		public Variable_typeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -996,9 +970,9 @@ public class MileParserParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(133);
+			setState(124);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTEGER_RW) | (1L << STRING_RW) | (1L << REAL_RW) | (1L << BOOLEAN_RW))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTEGER_RW) | (1L << STRING_RW) | (1L << FLOAT_RW))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1042,24 +1016,24 @@ public class MileParserParser extends Parser {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_declaration);
 		try {
-			setState(141);
+			setState(132);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(135);
+				setState(126);
 				variable_type();
-				setState(136);
+				setState(127);
 				match(ID);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(138);
+				setState(129);
 				variable_type();
-				setState(139);
+				setState(130);
 				assign();
 				}
 				break;
@@ -1107,13 +1081,13 @@ public class MileParserParser extends Parser {
 			_localctx = new ReadContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(143);
+			setState(134);
 			match(READ_RW);
-			setState(144);
+			setState(135);
 			match(LPAR);
-			setState(145);
+			setState(136);
 			match(ID);
-			setState(146);
+			setState(137);
 			match(RPAR);
 			}
 		}
@@ -1167,17 +1141,17 @@ public class MileParserParser extends Parser {
 			_localctx = new PrintContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(148);
+			setState(139);
 			match(WRITE_RW);
-			setState(149);
+			setState(140);
 			match(LPAR);
-			setState(151); 
+			setState(142); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(150);
+				setState(141);
 				_la = _input.LA(1);
 				if ( !(_la==STRING || _la==ID) ) {
 				_errHandler.recoverInline(this);
@@ -1189,11 +1163,11 @@ public class MileParserParser extends Parser {
 				}
 				}
 				}
-				setState(153); 
+				setState(144); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==STRING || _la==ID );
-			setState(155);
+			setState(146);
 			match(RPAR);
 			}
 		}
@@ -1232,50 +1206,46 @@ public class MileParserParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\"\u00a0\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3 \u0097\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\3\2\3\2\3\2\3\3\3\3"+
 		"\6\3&\n\3\r\3\16\3\'\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4\62\n\4\3\5\3"+
 		"\5\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\5\7>\n\7\3\7\3\7\3\7\3\7\3\7\3\7\3"+
 		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7O\n\7\f\7\16\7R\13\7\3\b\3\b\3\b"+
-		"\3\b\7\bX\n\b\f\b\16\b[\13\b\3\b\3\b\5\b_\n\b\3\b\3\b\3\t\3\t\3\t\3\t"+
-		"\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\to\n\t\3\n\3\n\3\n\3\n\3\n\5\nv\n\n"+
-		"\3\13\7\13y\n\13\f\13\16\13|\13\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f"+
-		"\u0086\n\f\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u0090\n\16\3\17"+
-		"\3\17\3\17\3\17\3\17\3\20\3\20\3\20\6\20\u009a\n\20\r\20\16\20\u009b\3"+
-		"\20\3\20\3\20\2\3\f\21\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36\2\5\3\2"+
-		"\7\b\3\2\30\33\3\2\37 \u00a8\2 \3\2\2\2\4#\3\2\2\2\6\61\3\2\2\2\b\63\3"+
-		"\2\2\2\n\65\3\2\2\2\f=\3\2\2\2\16S\3\2\2\2\20n\3\2\2\2\22u\3\2\2\2\24"+
-		"z\3\2\2\2\26}\3\2\2\2\30\u0087\3\2\2\2\32\u008f\3\2\2\2\34\u0091\3\2\2"+
-		"\2\36\u0096\3\2\2\2 !\5\f\7\2!\"\7\2\2\3\"\3\3\2\2\2#%\5\b\5\2$&\5\6\4"+
-		"\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2()\3\2\2\2)*\5\n\6\2*\5\3"+
-		"\2\2\2+\62\5\32\16\2,\62\5\26\f\2-\62\5\f\7\2.\62\5\16\b\2/\62\5\34\17"+
-		"\2\60\62\5\36\20\2\61+\3\2\2\2\61,\3\2\2\2\61-\3\2\2\2\61.\3\2\2\2\61"+
-		"/\3\2\2\2\61\60\3\2\2\2\62\7\3\2\2\2\63\64\7\20\2\2\64\t\3\2\2\2\65\66"+
-		"\7\21\2\2\66\13\3\2\2\2\678\b\7\1\28>\7 \2\29:\7\f\2\2:;\5\f\7\2;<\7\r"+
-		"\2\2<>\3\2\2\2=\67\3\2\2\2=9\3\2\2\2>P\3\2\2\2?@\f\t\2\2@A\7\3\2\2AO\5"+
-		"\f\7\nBC\f\b\2\2CD\t\2\2\2DO\5\f\7\tEF\f\7\2\2FG\7\5\2\2GO\5\f\7\bHI\f"+
-		"\6\2\2IJ\7\t\2\2JO\5\f\7\7KL\f\5\2\2LM\7\6\2\2MO\5\f\7\6N?\3\2\2\2NB\3"+
-		"\2\2\2NE\3\2\2\2NH\3\2\2\2NK\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2Q\r"+
-		"\3\2\2\2RP\3\2\2\2ST\7\22\2\2TY\5\20\t\2UV\7\23\2\2VX\5\20\t\2WU\3\2\2"+
-		"\2X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z^\3\2\2\2[Y\3\2\2\2\\]\7\24\2\2]_\5\22"+
-		"\n\2^\\\3\2\2\2^_\3\2\2\2_`\3\2\2\2`a\7\25\2\2a\17\3\2\2\2bc\7\f\2\2c"+
-		"d\5\f\7\2de\7\r\2\2ef\7\16\2\2fg\5\24\13\2gh\7\17\2\2ho\3\2\2\2ij\7\f"+
-		"\2\2jk\5\f\7\2kl\7\r\2\2lm\5\6\4\2mo\3\2\2\2nb\3\2\2\2ni\3\2\2\2o\21\3"+
-		"\2\2\2pq\7\16\2\2qr\5\24\13\2rs\7\17\2\2sv\3\2\2\2tv\5\6\4\2up\3\2\2\2"+
-		"ut\3\2\2\2v\23\3\2\2\2wy\5\6\4\2xw\3\2\2\2y|\3\2\2\2zx\3\2\2\2z{\3\2\2"+
-		"\2{\25\3\2\2\2|z\3\2\2\2}~\7 \2\2~\u0085\7\13\2\2\177\u0086\5\f\7\2\u0080"+
-		"\u0086\7 \2\2\u0081\u0086\7\34\2\2\u0082\u0086\7\35\2\2\u0083\u0086\7"+
-		"\37\2\2\u0084\u0086\7\36\2\2\u0085\177\3\2\2\2\u0085\u0080\3\2\2\2\u0085"+
-		"\u0081\3\2\2\2\u0085\u0082\3\2\2\2\u0085\u0083\3\2\2\2\u0085\u0084\3\2"+
-		"\2\2\u0086\27\3\2\2\2\u0087\u0088\t\3\2\2\u0088\31\3\2\2\2\u0089\u008a"+
-		"\5\30\r\2\u008a\u008b\7 \2\2\u008b\u0090\3\2\2\2\u008c\u008d\5\30\r\2"+
-		"\u008d\u008e\5\26\f\2\u008e\u0090\3\2\2\2\u008f\u0089\3\2\2\2\u008f\u008c"+
-		"\3\2\2\2\u0090\33\3\2\2\2\u0091\u0092\7\26\2\2\u0092\u0093\7\f\2\2\u0093"+
-		"\u0094\7 \2\2\u0094\u0095\7\r\2\2\u0095\35\3\2\2\2\u0096\u0097\7\27\2"+
-		"\2\u0097\u0099\7\f\2\2\u0098\u009a\t\4\2\2\u0099\u0098\3\2\2\2\u009a\u009b"+
-		"\3\2\2\2\u009b\u0099\3\2\2\2\u009b\u009c\3\2\2\2\u009c\u009d\3\2\2\2\u009d"+
-		"\u009e\7\r\2\2\u009e\37\3\2\2\2\17\'\61=NPY^nuz\u0085\u008f\u009b";
+		"\3\b\5\bX\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tf\n\t"+
+		"\3\n\3\n\3\n\3\n\3\n\5\nm\n\n\3\13\7\13p\n\13\f\13\16\13s\13\13\3\f\3"+
+		"\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f}\n\f\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3"+
+		"\16\5\16\u0087\n\16\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\6\20\u0091"+
+		"\n\20\r\20\16\20\u0092\3\20\3\20\3\20\2\3\f\21\2\4\6\b\n\f\16\20\22\24"+
+		"\26\30\32\34\36\2\5\3\2\b\t\3\2\26\30\4\2\34\34\36\36\u009e\2 \3\2\2\2"+
+		"\4#\3\2\2\2\6\61\3\2\2\2\b\63\3\2\2\2\n\65\3\2\2\2\f=\3\2\2\2\16S\3\2"+
+		"\2\2\20e\3\2\2\2\22l\3\2\2\2\24q\3\2\2\2\26t\3\2\2\2\30~\3\2\2\2\32\u0086"+
+		"\3\2\2\2\34\u0088\3\2\2\2\36\u008d\3\2\2\2 !\5\f\7\2!\"\7\2\2\3\"\3\3"+
+		"\2\2\2#%\5\b\5\2$&\5\6\4\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2"+
+		"()\3\2\2\2)*\5\n\6\2*\5\3\2\2\2+\62\5\32\16\2,\62\5\26\f\2-\62\5\f\7\2"+
+		".\62\5\16\b\2/\62\5\34\17\2\60\62\5\36\20\2\61+\3\2\2\2\61,\3\2\2\2\61"+
+		"-\3\2\2\2\61.\3\2\2\2\61/\3\2\2\2\61\60\3\2\2\2\62\7\3\2\2\2\63\64\7\20"+
+		"\2\2\64\t\3\2\2\2\65\66\7\21\2\2\66\13\3\2\2\2\678\b\7\1\28>\7\36\2\2"+
+		"9:\7\f\2\2:;\5\f\7\2;<\7\r\2\2<>\3\2\2\2=\67\3\2\2\2=9\3\2\2\2>P\3\2\2"+
+		"\2?@\f\t\2\2@A\7\4\2\2AO\5\f\7\nBC\f\b\2\2CD\t\2\2\2DO\5\f\7\tEF\f\7\2"+
+		"\2FG\7\6\2\2GO\5\f\7\bHI\f\6\2\2IJ\7\n\2\2JO\5\f\7\7KL\f\5\2\2LM\7\7\2"+
+		"\2MO\5\f\7\6N?\3\2\2\2NB\3\2\2\2NE\3\2\2\2NH\3\2\2\2NK\3\2\2\2OR\3\2\2"+
+		"\2PN\3\2\2\2PQ\3\2\2\2Q\r\3\2\2\2RP\3\2\2\2ST\7\22\2\2TW\5\20\t\2UV\7"+
+		"\23\2\2VX\5\22\n\2WU\3\2\2\2WX\3\2\2\2X\17\3\2\2\2YZ\7\f\2\2Z[\5\f\7\2"+
+		"[\\\7\r\2\2\\]\7\3\2\2]^\5\24\13\2^_\7\3\2\2_f\3\2\2\2`a\7\f\2\2ab\5\f"+
+		"\7\2bc\7\r\2\2cd\5\6\4\2df\3\2\2\2eY\3\2\2\2e`\3\2\2\2f\21\3\2\2\2gh\7"+
+		"\3\2\2hi\5\24\13\2ij\7\3\2\2jm\3\2\2\2km\5\6\4\2lg\3\2\2\2lk\3\2\2\2m"+
+		"\23\3\2\2\2np\5\6\4\2on\3\2\2\2ps\3\2\2\2qo\3\2\2\2qr\3\2\2\2r\25\3\2"+
+		"\2\2sq\3\2\2\2tu\7\36\2\2u|\7\35\2\2v}\5\f\7\2w}\7\36\2\2x}\7\31\2\2y"+
+		"}\7\32\2\2z}\7\34\2\2{}\7\33\2\2|v\3\2\2\2|w\3\2\2\2|x\3\2\2\2|y\3\2\2"+
+		"\2|z\3\2\2\2|{\3\2\2\2}\27\3\2\2\2~\177\t\3\2\2\177\31\3\2\2\2\u0080\u0081"+
+		"\5\30\r\2\u0081\u0082\7\36\2\2\u0082\u0087\3\2\2\2\u0083\u0084\5\30\r"+
+		"\2\u0084\u0085\5\26\f\2\u0085\u0087\3\2\2\2\u0086\u0080\3\2\2\2\u0086"+
+		"\u0083\3\2\2\2\u0087\33\3\2\2\2\u0088\u0089\7\24\2\2\u0089\u008a\7\f\2"+
+		"\2\u008a\u008b\7\36\2\2\u008b\u008c\7\r\2\2\u008c\35\3\2\2\2\u008d\u008e"+
+		"\7\25\2\2\u008e\u0090\7\f\2\2\u008f\u0091\t\4\2\2\u0090\u008f\3\2\2\2"+
+		"\u0091\u0092\3\2\2\2\u0092\u0090\3\2\2\2\u0092\u0093\3\2\2\2\u0093\u0094"+
+		"\3\2\2\2\u0094\u0095\7\r\2\2\u0095\37\3\2\2\2\16\'\61=NPWelq|\u0086\u0092";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

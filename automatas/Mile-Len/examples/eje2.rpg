@@ -1,0 +1,14 @@
+born
+	mage i
+	priest j
+	
+	listen(i)
+	
+	attack(i = j) !
+		i <-> 0 
+	! defend!
+		j <-> 1
+	!
+	
+	talk(i)
+die
