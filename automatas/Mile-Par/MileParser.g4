@@ -8,6 +8,7 @@ s 		: operation EOF
 program	: start_block stat+	end_block	
 		;
 
+
 stat		: declaration
 			| assign
     		| operation
@@ -22,8 +23,10 @@ start_block : BEGIN_RW
 end_block	: END_RW		
 			;
 
-operation  	: operation PLUS operation 				# plus
-            | operation ( EQUAL | NQUAL ) operation 	# comp
+operation  	: operation ADD operation 				# plus
+            | operation ( EQUAL | NQUAL |LTHAN | GTHAN ) operation 	# comp
+            | operation MUL operation				# multiply
+            | operation DIV operation				# divide
             | operation AND operation 				# and
             | operation OR operation 				# or
             | ID 									# id
@@ -32,7 +35,7 @@ operation  	: operation PLUS operation 				# plus
 
 
 if_block	: IF_RW condition_block 
-			  (ELSE_RW else_block)* 
+			  (ELSE_RW else_block)? 
 			;
 
 condition_block	: LPAR operation RPAR EXC_MARK block EXC_MARK
@@ -61,10 +64,16 @@ variable_type	: INTEGER_RW
 				| BOOLEAN_RW
 				;
 
-declaration		: variable_type ID 
+declaration		: data_type variable_type ID 
 				| variable_type assign  
+				;
+				
+data_type		: VAR_RW
+				| CONST_RW	
 				;
 
 read_block: READ_RW LPAR ID RPAR # read;
 
 write_block: WRITE_RW LPAR (STRING | ID)+ RPAR # print;
+
+math_function:	FUNCTION_RW LPAR ( ID|INT|FLOAT|math_function|operation )* RPAR ; 

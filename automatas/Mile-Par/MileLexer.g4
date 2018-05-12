@@ -5,12 +5,15 @@ fragment FALSE	: 'refuse'		;
 fragment NUMBER	: [0-9]			;
 fragment LETTER : [a-zA-Z]		;
 fragment DOT	: '.'			;
+fragment COLON	: ':'			;
 
 EXC_MARK: '!'	;
-PLUS 	: '+'	;
-MINUS	: '-'	;
-AND		: 'and'	;
-OR		: 'or'	;
+ADD 	: '+'	;
+SUB		: '-'	;
+MUL		: '*'	;
+DIV		: '/'	;
+AND		: '$$'	;
+OR		: '##'	;
 EQUAL	: '='	;
 NQUAL	: '<>'	;
 LTHAN	: '<'	;
@@ -33,12 +36,15 @@ WHILE_RW	: 'travel'		;
 
 READ_RW		: 'listen'		;
 WRITE_RW	: 'talk'		;
+
+VAR_RW		: 'job'			;
+CONST_RW	: 'class'		;
 INTEGER_RW	: 'mage'		;
 STRING_RW	: 'knight'		;
 FLOAT_RW	: 'priest'		;
 BOOLEAN_RW	: 'thief'		;
 
-INT		: NUMBER+				;
+INT		: NUMBER+			;
 FLOAT 	: INT DOT INT		;
 BOOLEAN : TRUE | FALSE		;
 STRING 	: '"' .*? '"'		;
@@ -47,4 +53,9 @@ ID		: LETTER+ (LETTER|NUMBER)*		;
 COMMENT	:  '||' .*? '\r'? '\n' -> skip	;
 WS 		: [ \t\r\n]+ -> skip 			;
 
+POW		: 'buff'			;
+SQRT	: 'nerf'			;
+ABS		: 'clean'			;
+RAND	: 'roll'			;
 
+FUNCTION_RW: POW|SQRT|ABS|RAND			;

@@ -1,5 +1,6 @@
+
 born
-	mage i
+	job mage i
 	mage j
 	priest k
 	knight i17
@@ -10,8 +11,6 @@ born
 		i <-> 0
 	!defend!
 		i <-> 1
-	!defend!
-		j <-> 2
 	!
 	talk(i)
 die
