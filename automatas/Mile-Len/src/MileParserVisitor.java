@@ -68,12 +68,26 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAnd(MileParserParser.AndContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code divide}
+	 * labeled alternative in {@link MileParserParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivide(MileParserParser.DivideContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code id}
 	 * labeled alternative in {@link MileParserParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitId(MileParserParser.IdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code multiply}
+	 * labeled alternative in {@link MileParserParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiply(MileParserParser.MultiplyContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code plus}
 	 * labeled alternative in {@link MileParserParser#operation}.
@@ -124,6 +138,12 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclaration(MileParserParser.DeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MileParserParser#data_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitData_type(MileParserParser.Data_typeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code read}
 	 * labeled alternative in {@link MileParserParser#read_block}.
 	 * @param ctx the parse tree
@@ -137,4 +157,10 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrint(MileParserParser.PrintContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MileParserParser#math_function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMath_function(MileParserParser.Math_functionContext ctx);
 }

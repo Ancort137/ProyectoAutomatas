@@ -1,9 +1,9 @@
 
 born
 	job mage i
-	mage j
-	priest k
-	knight i17
+	job mage j
+	class priest k
+	job knight i17
 	
 	listen(i)
 	
