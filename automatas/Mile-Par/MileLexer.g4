@@ -18,7 +18,7 @@ EQUAL	: '='	;
 NQUAL	: '<>'	;
 LTHAN	: '<'	;
 GTHAN	: '>'	;
-
+ 
 ASSIGN 	: '<->'	;
 LPAR	: '('	;
 RPAR	: ')'	;
@@ -38,7 +38,7 @@ READ_RW		: 'listen'		;
 WRITE_RW	: 'talk'		;
 
 VAR_RW		: 'job'			;
-CONST_RW	: 'class'		;
+CONST_RW	: 'race'		;
 INTEGER_RW	: 'mage'		;
 STRING_RW	: 'knight'		;
 FLOAT_RW	: 'priest'		;
@@ -58,4 +58,6 @@ SQRT	: 'nerf'			;
 ABS		: 'clean'			;
 RAND	: 'roll'			;
 
-FUNCTION_RW: POW|SQRT|ABS|RAND			;
+RANGE_RW : DOT DOT			;
+
+FUNCTION_RW: POW | SQRT | ABS | RAND			;

@@ -1,16 +1,31 @@
 born
-	mage i
-	priest j
-	mage i
+	job mage i
+	race priest j
+	job mage ijk12kl
+	job thief k <-> accept
 	
 	listen(i)
 	
-	attack(i = j)!
-		i <-> 0 
-	! defend!
-		j <-> 1
-	!
-	
-	talk(i)
+	journey(1..i){
+		attack(i = j)!
+			i <-> 0 
+		! defend!
+			j <-> 1
+		!
+	}
+	j <-> buff(ijk12kl)
+	i <-> roll(i) 
 
+	talk(i)
+	clean(ijk12kl)
+
+||assdadas123_°!"#$$%&/()
+
+	travel(i..j){
+		attack(k)!
+			k<->refuse
+		!
+	}
+	roll(j)
+	talk(k)
 die

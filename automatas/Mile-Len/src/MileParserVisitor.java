@@ -96,6 +96,13 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPlus(MileParserParser.PlusContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code substract}
+	 * labeled alternative in {@link MileParserParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubstract(MileParserParser.SubstractContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MileParserParser#if_block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -119,6 +126,30 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBlock(MileParserParser.BlockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MileParserParser#for_block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor_block(MileParserParser.For_blockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MileParserParser#while_block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile_block(MileParserParser.While_blockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MileParserParser#loop_condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop_condition(MileParserParser.Loop_conditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MileParserParser#range}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRange(MileParserParser.RangeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MileParserParser#assign}.
 	 * @param ctx the parse tree
@@ -158,9 +189,10 @@ public interface MileParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrint(MileParserParser.PrintContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MileParserParser#math_function}.
+	 * Visit a parse tree produced by the {@code function}
+	 * labeled alternative in {@link MileParserParser#math_function}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMath_function(MileParserParser.Math_functionContext ctx);
+	T visitFunction(MileParserParser.FunctionContext ctx);
 }
